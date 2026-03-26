@@ -8,8 +8,6 @@ class Expenses extends StatefulWidget{
     // TODO: implement createState
     return _ExpensesState();
   }
-
-  
   
   }
 
