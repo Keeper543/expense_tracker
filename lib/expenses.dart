@@ -1,4 +1,4 @@
-import 'package:expense_tracker/expenses_list.dart';
+import 'package:expense_tracker/expenses_list/expenses_list.dart';
 
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class Expenses extends StatefulWidget{
   class _ExpensesState extends State<Expenses>{
     final List<Expense>_registeredExpenses = [
       Expense(
-        id: '',
+       
         title: "pizzia",
         amount: 25.00,
         date: DateTime.now(),
@@ -25,7 +25,7 @@ class Expenses extends StatefulWidget{
       ),
 
       Expense(
-        id: '',
+       
         title: "train ticket",
         amount: 2.00,
         date: DateTime.now(),
@@ -41,10 +41,9 @@ class Expenses extends StatefulWidget{
       body: Column(
         children: [
           Text("the chart goes here"),
-          SizedBox(height: 30,),
-          SizedBox(
-            height: 300,
-            child: ExpensesList(expenses:_registeredExpenses,))
+          
+           Expanded( child: ExpensesList(expenses:_registeredExpenses,)))
+           
         ],
       ),
     );
