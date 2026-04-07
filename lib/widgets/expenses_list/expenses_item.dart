@@ -1,6 +1,6 @@
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/expenses.dart';
+import 'package:expense_tracker/widgets/expenses.dart';
 
 class ExpensesItem extends StatelessWidget{
   const ExpensesItem({super.key, required this.expense});
@@ -19,7 +19,7 @@ class ExpensesItem extends StatelessWidget{
           Text(expense.title),
           const SizedBox(height: 4,),
           Row(children: [
-            Text('\$${expense.amount.tostringAsFixed(2)}')
+            Text('\$${expense.amount.tostringAsFixed(2)}'),
             Spacer(),
             Row(children: [
                Icon(categoryIcons[expense.category]),
