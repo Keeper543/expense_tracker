@@ -10,9 +10,7 @@ class Expenses extends StatefulWidget{
   State<StatefulWidget> createState() {
     return _ExpensesState();
   }
-  
   }
-
 
   class _ExpensesState extends State<Expenses>{
     final List<Expense>_registeredExpenses = [
@@ -36,8 +34,14 @@ class Expenses extends StatefulWidget{
   @override
   
   Widget build(BuildContext context) {
-    
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Expense Tracker"),
+        actions: [
+          IconButton(onPressed: (){}, 
+          icon: const Icon(Icons.add))
+        ],
+      ),
       body: Column(
         children: [
           Text("the chart goes here"),
