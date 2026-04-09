@@ -5,8 +5,10 @@ final formatter = DateFormat.yMd();
 
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
 
+  final void Function(Expense expense) onAddExpense;
+ @override
   State<NewExpense> createState(){
    return _NewExpenseState();
   } 
@@ -15,7 +17,40 @@ class _NewExpenseState extends State<NewExpense>{
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectDate;
-   Category? _selectedCategory  =Category.leisure;
+   Category? _selectedCategory =Category.leisure;
+   
+   void _submitExpenseData(){
+    final enteredAmount = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <=0;
+        if(_titleController.text.trim().isEmpty|| amountIsInvalid || _selectDate == null){
+            showDialog(context:context, builder: (ctx)=>
+        AlertDialog(
+          title: const Text('Invalid Input!'),
+          content: const Text('Please make sure valid title, amount, date were entered!'),
+          actions: [
+            TextButton(
+              onPressed: (){
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        )
+      );
+      return;
+    }
+    widget.onAddExpense(
+      Expense(
+        title: _titleController.text, 
+        amount: enteredAmount!,
+        date: _selectDate!, 
+        category: _selectedCategory
+      ),
+    );
+    }
+
+
+    
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year -1, now.month, now.day);
@@ -80,7 +115,7 @@ class _NewExpenseState extends State<NewExpense>{
               )
             ],
           ),
-       
+       SizedBox(height: 10,),
         Row(children: [
           DropdownButton(
             value: _selectedCategory,
@@ -98,11 +133,10 @@ class _NewExpenseState extends State<NewExpense>{
               _selectedCategory = value;
             });
            }),
-            ElevatedButton(onPressed: (){
-             print(_titleController.text);
-             print(_amountController.text);
-            }, 
-            child: Text('Save Expense')),
+           Spacer(),
+            ElevatedButton(
+              onPressed: _submitExpenseData,
+              child: Text('Save Expense')),
             ElevatedButton(onPressed: (){
               Navigator.pop(context);
              }, 
