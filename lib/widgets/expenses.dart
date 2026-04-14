@@ -27,9 +27,19 @@ class Expenses extends StatefulWidget{
 
   }
   void _removeExpense(Expense expense){
+    final expenseIndex = _registeredExpenses.indexOf(expense);
     setState(() {
       _registeredExpenses.remove(expense);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(SnackBar(
+      duration: Duration(seconds: 5),
+      content: Text("deleted"
+      action: SnackBarAction(label: 'undo', onPressed: (){
+        setState(() {
+          _registeredExpenses.insert(expenseIndex, expense)
+        });
+      }))));
     
   }
     final List<Expense>_registeredExpenses = [
@@ -53,6 +63,16 @@ class Expenses extends StatefulWidget{
   @override
   
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text("no expenses. make one "),
+    );
+    if (_registeredExpenses.isNotEmpty){
+      mainContent: ExpensesList(
+        expenses: _registeredExpenses,
+      onRemoveExpenses:_removeExpense,
+    );
+    }
+      
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expense Tracker"),
@@ -65,7 +85,10 @@ class Expenses extends StatefulWidget{
         children: [
           Text("the chart goes here"),
           
-           Expanded( child: ExpensesList(expenses:_registeredExpenses,)))
+           Expanded( child: ExpensesList(expenses:mainContent,)
+        
+           )
+           )
            
         ],
       ),
