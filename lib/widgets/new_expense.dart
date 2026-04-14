@@ -44,7 +44,7 @@ class _NewExpenseState extends State<NewExpense>{
         title: _titleController.text, 
         amount: enteredAmount!,
         date: _selectDate!, 
-        category: _selectedCategory
+        category: _selectedCategory,
       ),
     );
     }
