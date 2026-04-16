@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 var kColorScheme = ColorScheme.fromSeed(seedColor:
   const Color.fromARGB(255, 96, 59,181),
 );
-var kDarkColorScheme = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96, 59,181)
+var kDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 96, 59,181)
 );
 void main() {
   runApp( 
@@ -42,7 +44,7 @@ void main() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor:  kDarkColorScheme.primaryContainer,
-        foregroundBuilder: kDarkColorScheme.onPrimaryContainer,
+        foregroundColor: kDarkColorScheme.onPrimaryContainer,
       ),
     ),
       ),
